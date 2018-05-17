@@ -1,0 +1,46 @@
+<p>
+  <strong>Title: </strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Content: </strong>
+  <%= @article.content %>
+</p>
+
+<%=link_to "수정", edit_article_path(@article) %>
+<%=link_to "삭제", article_path(@article), method: :delete %>
+
+<%= link_to "Articles list", articles_path %>
+
+<p>
+  <h3>Comments</h3>
+  <ul id="Comments">
+    <% @article.comments.each do |comment| %>
+    <li><%= comment.content %></li>
+    <% end %>
+  </ul>
+</p>
+
+
+<p>
+  <h3>Comments</h3>
+  <ul id="comments">
+    <% @article.comments.each do |comment| %>
+    <li><%= comment.content %>
+        <%= link_to '삭제', comment_path(comment),
+        :method => :delete,
+        data: {confirm: "정말로 삭제하시겠습니까>"} %>
+        <% end %>
+        </li>
+  </ul>
+</p>
+
+
+<p>
+  <%= form_for :comment, url: article_comments_path(@article.id) do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit %>
+  <% end %>
+</p>
+
